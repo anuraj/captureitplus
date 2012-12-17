@@ -106,6 +106,14 @@
         private void Execute(object sender, EventArgs e)
         {
             var menuItem = sender as ToolStripMenuItem;
+            try
+            {
+                menuItem.Owner.Hide();
+            }
+            catch
+            {
+                //Ignore all the exceptions.
+            }
             var captureMode = menuItem.Tag as ICaptureMode;
             captureMode.Initialize(new object[] { Foldername, this, Handle });
             _fileName = captureMode.Execute();
