@@ -266,16 +266,6 @@
         {
             switch (m.Msg)
             {
-                case NativeMethods.WM_LBUTTONDOWN:
-                    IntPtr handle = NativeMethods.WindowFromPoint(Cursor.Position);
-                    _fileName = Common.ExecuteCaptureMode(Constants.ACTIVEWINDOWCAPTURE_PLUGIN, new object[] { new object[] { Foldername, this, handle } }).ToString();
-                    ExecuteAfterCapture();
-                    break;
-                case NativeMethods.WM_LBUTTONUP:
-                    NativeMethods.ReleaseCapture();
-                    break;
-                case NativeMethods.WM_MOUSEMOVE:
-                    break;
                 case KeyboardMapper.WM_HOTKEY:
                     InvokeShortcut(m.WParam.ToInt32());
                     break;

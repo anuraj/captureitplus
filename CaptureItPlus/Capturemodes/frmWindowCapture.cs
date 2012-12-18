@@ -28,7 +28,7 @@ namespace CaptureItPlus.Capturemodes
                 case (int)NativeMethods.WM_LBUTTONUP:
                     CaptureWindow();
                     CaptureMouse(false);
-                    Close();
+                    CloseWindow();
                     break;
                 case (int)NativeMethods.WM_MOUSEMOVE:
                     HandleMouseMoves();
