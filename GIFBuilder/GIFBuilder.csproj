@@ -1,22 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3D7FEF16-7440-4727-8D3F-3DA7C1DE2889}</ProjectGuid>
+    <ProjectGuid>{F577C0AE-5AD1-4BC8-B99C-44EE5C61CA18}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SendToPlugins</RootNamespace>
-    <AssemblyName>SendToPlugins</AssemblyName>
+    <RootNamespace>GIFBuilder</RootNamespace>
+    <AssemblyName>GIFBuilder</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,7 +27,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\Output\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -39,66 +38,29 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Json">
-      <HintPath>..\..\..\..\Users\Anuraj\Downloads\json-for-dotnet-1.2\System.Net.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplyWaterMark.cs" />
+    <Compile Include="GIFBuilderTool.cs" />
+    <Compile Include="GIFBuilderUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GIFBuilderUI.Designer.cs">
+      <DependentUpon>GIFBuilderUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SendToImgur.cs" />
-    <Compile Include="SendToImgurUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SendToImgurUI.Designer.cs">
-      <DependentUpon>SendToImgurUI.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SendToPrinter.cs" />
-    <Compile Include="SendToSkydriveUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SendToSkydriveUI.Designer.cs">
-      <DependentUpon>SendToSkydriveUI.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SkydriveAuth.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SkydriveAuth.Designer.cs">
-      <DependentUpon>SkydriveAuth.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UploadToSkydrive.cs" />
-    <Compile Include="Watermarker.cs" />
-    <Compile Include="WaterMarkerUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WaterMarkerUI.Designer.cs">
-      <DependentUpon>WaterMarkerUI.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CaptureItPlus.Libs\CaptureItPlus.Libs.csproj">
-      <Project>{D91F07E7-2624-4E07-9C34-022F79D143BF}</Project>
+      <Project>{d91f07e7-2624-4e07-9c34-022f79d143bf}</Project>
       <Name>CaptureItPlus.Libs</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SendToImgurUI.resx">
-      <DependentUpon>SendToImgurUI.cs</DependentUpon>
+    <EmbeddedResource Include="GIFBuilderUI.resx">
+      <DependentUpon>GIFBuilderUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SendToSkydriveUI.resx">
-      <DependentUpon>SendToSkydriveUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SkydriveAuth.resx">
-      <DependentUpon>SkydriveAuth.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WaterMarkerUI.resx">
-      <DependentUpon>WaterMarkerUI.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="System.Net.Json.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
