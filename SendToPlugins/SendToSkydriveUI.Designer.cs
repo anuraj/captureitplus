@@ -63,7 +63,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(381, 108);
+            this.ClientSize = new System.Drawing.Size(381, 109);
             this.ControlBox = false;
             this.Controls.Add(this.cmdSignIn);
             this.Controls.Add(this.uploadProgress);
@@ -73,7 +73,6 @@
             this.Name = "SendToSkydriveUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SendTo Skydrive";
-            this.Load += new System.EventHandler(this.SendToSkydriveUI_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
