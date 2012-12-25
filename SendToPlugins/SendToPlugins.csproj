@@ -39,9 +39,6 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Json">
-      <HintPath>..\..\..\..\Users\Anuraj\Downloads\json-for-dotnet-1.2\System.Net.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -96,9 +93,6 @@
     <EmbeddedResource Include="WaterMarkerUI.resx">
       <DependentUpon>WaterMarkerUI.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="System.Net.Json.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
