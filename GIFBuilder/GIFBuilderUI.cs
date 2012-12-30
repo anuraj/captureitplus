@@ -42,6 +42,10 @@ namespace GIFBuilder
         private void FileLoadingWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             ToggleButtons(true);
+            string firstImage = _selectedImages[0];
+            Image image = Image.FromFile(firstImage);
+            numTargetHeight.Value = image.Height;
+            numTargetWidth.Value = image.Width;
         }
 
         private void FileLoadingWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)

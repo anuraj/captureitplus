@@ -36,12 +36,12 @@
             this.numSeconds = new System.Windows.Forms.NumericUpDown();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdBuild = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
             this.numTargetHeight = new System.Windows.Forms.NumericUpDown();
             this.numTargetWidth = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.BuildProgress = new System.Windows.Forms.ProgressBar();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numSeconds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTargetHeight)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTargetWidth)).BeginInit();
@@ -141,16 +141,6 @@
             this.cmdBuild.UseVisualStyleBackColor = true;
             this.cmdBuild.Click += new System.EventHandler(this.cmdBuild_Click);
             // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 314);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(97, 13);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Target Image size :";
-            // 
             // numTargetHeight
             // 
             this.numTargetHeight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -226,6 +216,16 @@
             this.BuildProgress.TabIndex = 6;
             this.BuildProgress.Value = 1;
             // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(7, 314);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(97, 13);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Target Image size :";
+            // 
             // GIFBuilderUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -269,11 +269,11 @@
         private System.Windows.Forms.NumericUpDown numSeconds;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Button cmdBuild;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown numTargetHeight;
         private System.Windows.Forms.NumericUpDown numTargetWidth;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ProgressBar BuildProgress;
+        private System.Windows.Forms.Label label4;
     }
 }
