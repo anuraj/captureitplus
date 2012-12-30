@@ -22,24 +22,17 @@ namespace SendToPlugins
             sendToSkydrive.ShowDialog();
         }
 
-        public string Description
+        private ISendToHost _host;
+        public ISendToHost Host
         {
-            get { return "This plugin helps to upload image to Skydrive"; }
-        }
-
-        public string Help
-        {
-            get { return string.Format("Upload to Skydrive Plugin.{0}Copyright (C) 2012 captureitplus developers. All rights reserved.", Environment.NewLine); }
-        }
-
-        public bool IsFinished
-        {
-            get { return false; }
-        }
-
-        public Keys ShortcutKey
-        {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return _host;
+            }
+            set
+            {
+                _host = value;
+            }
         }
 
         public void Dispose()

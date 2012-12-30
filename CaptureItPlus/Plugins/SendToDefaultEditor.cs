@@ -24,35 +24,20 @@
                 ProcessStartInfo processStartInfo = new ProcessStartInfo(executable);
                 processStartInfo.Arguments = filename;
                 Process.Start(processStartInfo);
-                IsFinished = true;
             }
         }
 
-        public string Description
+        private ISendToHost _host;
+        public ISendToHost Host
         {
             get
             {
-                return "This plugin is used to open the captured image in the default image editor";
+                return _host;
             }
-        }
-
-        public string Help
-        {
-            get
+            set
             {
-                return string.Format("Send To Default Editor Plugin.{0}Copyright (C) 2011 captureitplus developers. All rights reserved.", Environment.NewLine);
+                _host = value;
             }
-        }
-
-        public bool IsFinished
-        {
-            get;
-            private set;
-        }
-
-        public Keys ShortcutKey
-        {
-            get { return Keys.None; }
         }
 
         [DllImport("shell32.dll", EntryPoint = "FindExecutable")]

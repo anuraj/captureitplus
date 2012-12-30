@@ -24,25 +24,6 @@
         /// <param name="filename">The captured file name.</param>
         void Execute(string filename);
 
-        /// <summary>
-        /// Description about the plugin
-        /// </summary>
-        string Description { get; }
-
-        /// <summary>
-        /// Help information about the plugin.
-        /// </summary>
-        string Help { get; }
-
-        /// <summary>
-        /// Gets whether the Send to execution is finished or not.
-        /// </summary>
-        bool IsFinished { get; }
-
-        /// <summary>
-        /// Gets the Plugin shortcut key.
-        /// </summary>
-        /// <remarks>If no key required, return Keys.None, doesn't throw NotImplementedException.</remarks>
-        Keys ShortcutKey { get; }
+        ISendToHost Host { get; set; }
     }
 }

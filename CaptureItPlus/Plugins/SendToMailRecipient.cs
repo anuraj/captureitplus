@@ -12,7 +12,6 @@
     public class SendToMailRecipient : ISendTo
     {
         private string _fileName;
-        private bool _isFinished;
 
         public string Text
         {
@@ -29,39 +28,26 @@
             _fileName = filename;
             mapi.AddAttachment(filename);
             mapi.SendMailPopup(string.Empty, filename);
-            _isFinished = true;
-        }
-
-        public bool IsFinished
-        {
-            get { return _isFinished; }
-        }
-
-        public string Description
-        {
-            get
-            {
-                return "This plugin is used to send captured image as attachment to the default email client";
-            }
-        }
-
-        public string Help
-        {
-            get
-            {
-                return string.Format("Send To Mail Recipient Plugin.{0}Copyright (C) 2011 captureitplus developers. All rights reserved.", Environment.NewLine);
-            }
-        }
-
-        public Keys ShortcutKey
-        {
-            get { return Keys.None; }
         }
 
         public string Name
         {
             get { return this.GetType().Name; }
         }
+
+        private ISendToHost _host;
+        public ISendToHost Host
+        {
+            get
+            {
+                return _host;
+            }
+            set
+            {
+                _host = value;
+            }
+        }
+
         #region IDisposable Members
 
         public void Dispose()

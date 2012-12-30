@@ -25,24 +25,17 @@ namespace CaptureItPlus.Plugins
             _sendToImgurUI.UploadFile();
         }
 
-        public string Description
+                private ISendToHost _host;
+        public ISendToHost Host
         {
-            get { return "This plugin will help to upload the image to Imgur.com"; }
-        }
-
-        public string Help
-        {
-            get { return string.Format("Send To Imgur.com Plugin.{0}Copyright (C) 2011 captureitplus developers. All rights reserved.", Environment.NewLine); }
-        }
-
-        public bool IsFinished
-        {
-            get { return false; }
-        }
-
-        public Keys ShortcutKey
-        {
-            get { return Keys.Control & Keys.F; }
+            get
+            {
+                return _host;
+            }
+            set
+            {
+                _host = value;
+            }
         }
 
         public void Dispose()

@@ -171,7 +171,6 @@
                 {
                     var sendToMenuItem = new ToolStripMenuItem(menuItem.Text);
                     sendToMenuItem.Click += sendToMenuItem_Click;
-                    sendToMenuItem.ToolTipText = menuItem.Description;
                     sendToMenuItem.Tag = menuItem;
                     toolStripSendTo.DropDownItems.Add(sendToMenuItem);
                 }
@@ -377,7 +376,7 @@
             return result;
         }
 
-        public static void ExecutePlugin(IEnumerable<ISendTo> sendTos, string pluginName, string fileName)
+        public static void ExecutePlugin(IEnumerable<ISendTo> sendTos, string pluginName, string fileName, ISendToHost host)
         {
             ISendTo selectedSendTo = null;
             foreach (var sendTo in sendTos)
@@ -385,6 +384,7 @@
                 if (sendTo.GetType().FullName.Equals(pluginName, StringComparison.CurrentCultureIgnoreCase))
                 {
                     selectedSendTo = sendTo;
+                    selectedSendTo.Host = host;
                     break;
                 }
             }

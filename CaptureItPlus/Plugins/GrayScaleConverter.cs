@@ -54,24 +54,17 @@ namespace CaptureItPlus.Plugins
             return bm;
         }
 
-        public string Description
+                private ISendToHost _host;
+        public ISendToHost Host
         {
-            get { return "This plugin helps to convert an image to Gray scale"; }
-        }
-
-        public string Help
-        {
-            get { return string.Format("Send To GrayScale converter Plugin.{0}Copyright (C) 2011 captureitplus developers. All rights reserved.", Environment.NewLine); }
-        }
-
-        public bool IsFinished
-        {
-            get { return true; }
-        }
-
-        public Keys ShortcutKey
-        {
-            get { return Keys.Control & Keys.F; }
+            get
+            {
+                return _host;
+            }
+            set
+            {
+                _host = value;
+            }
         }
 
         #endregion

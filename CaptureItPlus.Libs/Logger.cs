@@ -18,7 +18,6 @@ namespace CaptureItPlus.Libs
         {
             using (StreamWriter streamWriter = new StreamWriter(_fileName, true))
             {
-                streamWriter.BaseStream.Position = 0;
                 streamWriter.WriteLine();
                 streamWriter.WriteLine("Date Time :{0}", DateTime.Now);
                 streamWriter.WriteLine("OS :{0}", Environment.OSVersion);

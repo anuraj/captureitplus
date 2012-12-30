@@ -9,7 +9,7 @@
     using CaptureItPlus.Libs;
     using dotnetthoughts.CaptureItPlus;
 
-    public partial class frmSettings : Form
+    public partial class frmSettings : Form, ISendToHost
     {
         #region Private variables
 
@@ -19,7 +19,7 @@
         private IEnumerable<ISendTo> _sendToPlugins;
         private KeyboardMapper _keyboardMapper;
         private bool _isShortcutsEnabled;
-
+        private IList<PluginConfiguration> _pluginConfigurations;
         #endregion
 
         public frmSettings()
@@ -126,6 +126,7 @@
         {
             var menuItem = sender as ToolStripMenuItem;
             var sendTo = menuItem.Tag as ISendTo;
+            sendTo.Host = this;
             if (string.IsNullOrEmpty(_fileName) || !File.Exists(_fileName))
             {
                 if (MessageBox.Show(Constants.IMAGE_SELECT_CONFIRM, Constants.APP_TITLE, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
@@ -295,7 +296,7 @@
                         return; //No File selected or Found.
                     }
                 }
-                Common.ExecutePlugin(_sendToPlugins, attribute.ActionMethod, _fileName);
+                Common.ExecutePlugin(_sendToPlugins, attribute.ActionMethod, _fileName, this);
             }
             else
             {
@@ -392,7 +393,7 @@
 
                 if (Properties.Settings.Default.ExecuteAfterCapture)
                 {
-                    Common.ExecutePlugin(_sendToPlugins, Properties.Settings.Default.ExecuteAfterCapturePlugin, _fileName);
+                    Common.ExecutePlugin(_sendToPlugins, Properties.Settings.Default.ExecuteAfterCapturePlugin, _fileName, this);
                 }
             }
         }
@@ -421,6 +422,34 @@
         private void llDownload_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ShowHelp();
+        }
+
+        public void SaveConfiguration(string pluginName, PluginConfiguration configuration)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PluginConfiguration LoadConfiguration(string pluginName)
+        {
+            if (_pluginConfigurations == null)
+            {
+                _pluginConfigurations = Utilities.DeserializeFromFile<IList<PluginConfiguration>>(Utilities.GetPluginConfigurationPath());
+            }
+
+            PluginConfiguration result = null;
+            if (_pluginConfigurations != null)
+            {
+                foreach (var pluginConfiguration in _pluginConfigurations)
+                {
+                    if (pluginConfiguration.Name.Equals(pluginName, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        result = pluginConfiguration;
+                        break;
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

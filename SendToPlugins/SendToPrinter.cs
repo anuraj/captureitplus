@@ -1,18 +1,33 @@
 ﻿namespace CaptureItPlus.Plugins
 {
     using CaptureItPlus.Libs;
-    using System;
-    using System.Drawing;
-    using System.Drawing.Printing;
-    using System.Windows.Forms;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Printing;
+using System.Windows.Forms;
 
     public class SendToPrinter : ISendTo
     {
-        private bool _isFinished;
         private Image _previewImage;
+        //private PluginConfiguration _configuration;
+
         public string Text
         {
             get { return "&Printer"; }
+        }
+
+        private ISendToHost _host;
+        public ISendToHost Host
+        {
+            get
+            {
+                return _host;
+            }
+            set
+            {
+                _host = value;
+            }
         }
 
         public void Execute(string filename)
@@ -21,6 +36,11 @@
             {
                 return;
             }
+
+            //if (_host != null)
+            //{
+            //    _configuration = _host.LoadConfiguration(Name);
+            //}
 
             _previewImage = Image.FromFile(filename);
             PrintDocument printDocument = new PrintDocument();
@@ -39,7 +59,6 @@
                 {
                     printDocument.Print();
                 }
-                _isFinished = true;
             }
 
         }
@@ -67,32 +86,7 @@
             }
             e.Graphics.DrawImage(_previewImage, 0, 0, (int)newWidth, (int)newHeight);
         }
-
-        public string Description
-        {
-            get
-            {
-                return "This plugin is used to print the captured image.";
-            }
-        }
-
-        public string Help
-        {
-            get
-            {
-                return string.Format("Send To Printer Plugin.{0}Copyright (C) 2011 captureitplus developers. All rights reserved.", Environment.NewLine);
-            }
-        }
-
-        public bool IsFinished
-        {
-            get { return _isFinished; }
-        }
-
-        public Keys ShortcutKey
-        {
-            get { return Keys.Control & Keys.P; }
-        }
+        
         public string Name
         {
             get { return this.GetType().Name; }
