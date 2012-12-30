@@ -77,10 +77,12 @@ namespace SendToPlugins
         public byte[] ImageToByteArray(string fileName)
         {
             byte[] imageData;
-            FileStream fileStream = File.OpenRead(fileName);
-            imageData = new byte[fileStream.Length];
-            fileStream.Read(imageData, 0, imageData.Length);
-            fileStream.Close();
+            using (FileStream fileStream = File.OpenRead(fileName))
+            {
+                imageData = new byte[fileStream.Length];
+                fileStream.Read(imageData, 0, imageData.Length);
+                fileStream.Close();
+            }
             return imageData;
         }
     }

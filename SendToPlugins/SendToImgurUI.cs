@@ -34,10 +34,13 @@ namespace CaptureItPlus.Plugins
         {
             byte[] imageData;
 
-            FileStream fileStream = File.OpenRead(_fileName);
-            imageData = new byte[fileStream.Length];
-            fileStream.Read(imageData, 0, imageData.Length);
-            fileStream.Close();
+            using (FileStream fileStream = File.OpenRead(_fileName))
+            {
+                imageData = new byte[fileStream.Length];
+                fileStream.Read(imageData, 0, imageData.Length);
+                fileStream.Close();
+            }
+
             ReportProgress(10);
             const int MAX_URI_LENGTH = 32766;
             string base64img = System.Convert.ToBase64String(imageData);
