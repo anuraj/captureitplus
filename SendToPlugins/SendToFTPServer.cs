@@ -26,7 +26,7 @@ namespace SendToPlugins
             {
                 if (sendToFtpServerUI.ShowDialog() == DialogResult.OK)
                 {
-
+                    MessageBox.Show("File uploaded to server successfully.", "Send To FTP Server", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }

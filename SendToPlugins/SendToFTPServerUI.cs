@@ -26,37 +26,47 @@ namespace SendToPlugins
 
         private void cmdConnectAndUpload_Click(object sender, EventArgs e)
         {
-            if (!txtServer.Text.StartsWith("ftp://"))
+            try
             {
-                txtServer.SelectionStart = 0;
-                txtServer.SelectionLength = 0;
-                txtServer.SelectedText = "ftp://";
-            }
-            string url = txtServer.Text + "/" + Path.GetFileName(_fileName);
-            FtpWebRequest ftpWebRequest = WebRequest.Create(url) as FtpWebRequest;
-            ftpWebRequest.Method = WebRequestMethods.Ftp.UploadFile;
-            if (chkAnonymous.Checked)
-            {
-                ftpWebRequest.Credentials = new NetworkCredential("anonymous", "anonymous");
-            }
-            else
-            {
-                ftpWebRequest.Credentials = new NetworkCredential(txtUsername.Text, txtPassword.Text);
-            }
+                if (!txtServer.Text.StartsWith("ftp://"))
+                {
+                    txtServer.SelectionStart = 0;
+                    txtServer.SelectionLength = 0;
+                    txtServer.SelectedText = "ftp://";
+                }
 
-            byte[] imageData = ImageToByteArray(_fileName);
-            ftpWebRequest.ContentLength = imageData.Length;
+                string url = txtServer.Text + "/" + Path.GetFileName(_fileName);
+                FtpWebRequest ftpWebRequest = WebRequest.Create(url) as FtpWebRequest;
+                ftpWebRequest.Method = WebRequestMethods.Ftp.UploadFile;
+                if (chkAnonymous.Checked)
+                {
+                    ftpWebRequest.Credentials = new NetworkCredential("anonymous", "anonymous");
+                }
+                else
+                {
+                    ftpWebRequest.Credentials = new NetworkCredential(txtUsername.Text, txtPassword.Text);
+                }
 
-            using (Stream requestStream = ftpWebRequest.GetRequestStream())
-            {
-                requestStream.Write(imageData, 0, imageData.Length);
+                byte[] imageData = ImageToByteArray(_fileName);
+                ftpWebRequest.ContentLength = imageData.Length;
+                
+                using (Stream requestStream = ftpWebRequest.GetRequestStream())
+                {
+                    requestStream.Write(imageData, 0, imageData.Length);
+                }
+
+                FtpWebResponse response = ftpWebRequest.GetResponse() as FtpWebResponse;
+                if (response.StatusCode == FtpStatusCode.ClosingData)
+                {
+                    DialogResult = DialogResult.OK;
+                }
             }
-            FtpWebResponse response = ftpWebRequest.GetResponse() as FtpWebResponse;
-            if (response.StatusCode == FtpStatusCode.ClosingData)
+            catch
             {
-                DialogResult = DialogResult.OK;
-                Close();
+                DialogResult = DialogResult.Cancel;
+                throw;
             }
+            Close();
         }
 
         public byte[] ImageToByteArray(string fileName)

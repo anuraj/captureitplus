@@ -53,7 +53,7 @@ namespace SendToPlugins
 
             var jsonText = ASCIIEncoding.ASCII.GetString(e.Result);
             string url = ParseAndGetValue(jsonText, "source:");
-            Process.Start(url);
+            MessageBox.Show("File uploaded to Skydrive", "Send To Sky drive", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
         }
 

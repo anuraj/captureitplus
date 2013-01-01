@@ -54,7 +54,7 @@
             this.txtServer.Location = new System.Drawing.Point(78, 10);
             this.txtServer.Name = "txtServer";
             this.txtServer.Size = new System.Drawing.Size(343, 20);
-            this.txtServer.TabIndex = 1;
+            this.txtServer.TabIndex = 0;
             // 
             // label2
             // 
@@ -71,7 +71,7 @@
             this.txtUsername.Location = new System.Drawing.Point(78, 68);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(343, 20);
-            this.txtUsername.TabIndex = 1;
+            this.txtUsername.TabIndex = 2;
             // 
             // label3
             // 
@@ -89,7 +89,7 @@
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(343, 20);
-            this.txtPassword.TabIndex = 1;
+            this.txtPassword.TabIndex = 3;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
             // cmdClose
@@ -98,7 +98,7 @@
             this.cmdClose.Location = new System.Drawing.Point(345, 139);
             this.cmdClose.Name = "cmdClose";
             this.cmdClose.Size = new System.Drawing.Size(75, 23);
-            this.cmdClose.TabIndex = 2;
+            this.cmdClose.TabIndex = 5;
             this.cmdClose.Text = "&Close";
             this.cmdClose.UseVisualStyleBackColor = true;
             // 
@@ -107,7 +107,7 @@
             this.cmdConnectAndUpload.Location = new System.Drawing.Point(204, 139);
             this.cmdConnectAndUpload.Name = "cmdConnectAndUpload";
             this.cmdConnectAndUpload.Size = new System.Drawing.Size(135, 23);
-            this.cmdConnectAndUpload.TabIndex = 2;
+            this.cmdConnectAndUpload.TabIndex = 4;
             this.cmdConnectAndUpload.Text = "&Connect and Upload";
             this.cmdConnectAndUpload.UseVisualStyleBackColor = true;
             this.cmdConnectAndUpload.Click += new System.EventHandler(this.cmdConnectAndUpload_Click);
@@ -120,7 +120,7 @@
             this.chkAnonymous.Location = new System.Drawing.Point(78, 37);
             this.chkAnonymous.Name = "chkAnonymous";
             this.chkAnonymous.Size = new System.Drawing.Size(112, 17);
-            this.chkAnonymous.TabIndex = 3;
+            this.chkAnonymous.TabIndex = 1;
             this.chkAnonymous.Text = "Anonymous login?";
             this.chkAnonymous.UseVisualStyleBackColor = true;
             this.chkAnonymous.CheckedChanged += new System.EventHandler(this.chkAnonymous_CheckedChanged);
@@ -131,7 +131,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdClose;
-            this.ClientSize = new System.Drawing.Size(434, 174);
+            this.ClientSize = new System.Drawing.Size(434, 173);
             this.ControlBox = false;
             this.Controls.Add(this.chkAnonymous);
             this.Controls.Add(this.cmdConnectAndUpload);
