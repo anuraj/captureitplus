@@ -45,7 +45,9 @@
             string _logFile = Path.ChangeExtension(Application.ExecutablePath, ".log");
             Logger logger = new Logger(_logFile);
             logger.WriteLog(e.Exception);
-            //MessageBox.Show(string.Format(Constants.APP_EXCEPTION, Environment.NewLine, e.Exception.Message, e.Exception.StackTrace), Constants.APP_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(string.Format(Constants.APP_EXCEPTION, 
+                Environment.NewLine, 
+                e.Exception.Message, e.Exception.StackTrace), Constants.APP_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

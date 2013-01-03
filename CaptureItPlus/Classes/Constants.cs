@@ -4,7 +4,7 @@
     {
         public const string APP_TITLE = "CaptureIt Plus";
         public const string APP_ALREADY_RUNNING = "Another instance of CaptureItPlus is already running";
-        public const string APP_EXCEPTION = "An application exception occured in CaptureIt Plus.{0}{0}Exception : {1}{0}Stack Trace:{2}{0}{0}Please report the issue to http://captureitplus.codeplex.com";
+        public const string APP_EXCEPTION = "An application exception occured in CaptureIt Plus.{0}Please report the issue to http://captureitplus.codeplex.com.{0}Please attach the captureitplus.log file, which helps us to identify and fix the problem.";
         public const string APP_URL = "http://captureitplus.codeplex.com";
         public const string ABOUT_MESSAGE = "CaptureIt Plus v1.0{0}{0}Developed by Anuraj P <anuraj.p@dotnetthoughts.net>{0}Licensed under GNU GPL v2.{0}{0}Homepage : http://captureitplus.codeplex.com";
         public const string APPINFOMESG = "{0} is running. Right click for settings";

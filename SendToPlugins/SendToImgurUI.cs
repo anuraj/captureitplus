@@ -14,12 +14,13 @@ namespace CaptureItPlus.Plugins
         private BackgroundWorker _backgroundWorker;
 
         private const string APIKEY = "f076e01c7f4a35d3f8d4d5d6d2daa04d";
+        private string _outputFilename;
         public SendToImgurUI()
         {
             InitializeComponent();
         }
 
-        public SendToImgurUI(string fileName)
+        public SendToImgurUI(string fileName, string title)
             : this()
         {
             _fileName = fileName;
@@ -28,6 +29,7 @@ namespace CaptureItPlus.Plugins
             _backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorkerRunWorkerCompleted);
             _backgroundWorker.ProgressChanged += new ProgressChangedEventHandler(backgroundWorkerProgressChanged);
             _backgroundWorker.DoWork += new DoWorkEventHandler(backgroundWorkerDoWork);
+            Text = title;
         }
 
         private void backgroundWorkerDoWork(object sender, DoWorkEventArgs e)
@@ -96,13 +98,10 @@ namespace CaptureItPlus.Plugins
                 var xml = new XmlDocument();
                 xml.LoadXml(response);
                 var url = xml.SelectSingleNode("/upload/links/original").InnerText;
-                var result = MessageBox.Show(string.Format("Image uploaded successfully. Here is the URL : {0} Would you like to copy the url to clipboard?"
-                    , url), "Send To Imgur", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (result == DialogResult.Yes)
-                {
-                    Clipboard.SetText(url);
-                }
+                _outputFilename = url;
+
                 xml = null;
+                DialogResult = DialogResult.OK;
             }
             catch (Exception)
             {
@@ -110,14 +109,22 @@ namespace CaptureItPlus.Plugins
             }
         }
 
-        public void UploadFile()
-        {
-            _backgroundWorker.RunWorkerAsync();
-        }
-
         private void ReportProgress(int progress)
         {
             _backgroundWorker.ReportProgress(progress);
+        }
+
+        public string OutputFile
+        {
+            get
+            {
+                return _outputFilename;
+            }
+        }
+
+        private void SendToImgurUI_Load(object sender, EventArgs e)
+        {
+            _backgroundWorker.RunWorkerAsync();
         }
     }
 }

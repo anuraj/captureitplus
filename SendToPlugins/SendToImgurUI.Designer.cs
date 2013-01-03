@@ -62,6 +62,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Send To Imgur.com";
+            this.Load += new System.EventHandler(this.SendToImgurUI_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

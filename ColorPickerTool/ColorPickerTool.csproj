@@ -51,7 +51,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Win32.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CaptureItPlus.Libs\CaptureItPlus.Libs.csproj">
