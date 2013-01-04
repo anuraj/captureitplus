@@ -93,20 +93,13 @@ namespace CaptureItPlus.Plugins
 
         private void ParseAndDisplayResponse(string response)
         {
-            try
-            {
-                var xml = new XmlDocument();
-                xml.LoadXml(response);
-                var url = xml.SelectSingleNode("/upload/links/original").InnerText;
-                _outputFilename = url;
+            var xml = new XmlDocument();
+            xml.LoadXml(response);
+            var url = xml.SelectSingleNode("/upload/links/original").InnerText;
+            _outputFilename = url;
 
-                xml = null;
-                DialogResult = DialogResult.OK;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            xml = null;
+            DialogResult = DialogResult.OK;
         }
 
         private void ReportProgress(int progress)
