@@ -8,14 +8,14 @@ namespace ImageEditor
 {
     public partial class FrmMainUI : Form
     {
-        private string _fileName;
+        private string _fileName = string.Empty;
         private readonly List<CustomShape> _shapes;
         private GraphicsPath _graphicsPath;
         private Shape _selectedShape = Shape.Unknown;
         private Color _selectedColor = Color.Red;
         private PenSize _selectedSize = PenSize.Fine;
         private Pen _selectedPen;
-        private readonly Pen _highlighterPen = new Pen(Color.FromArgb(92, Color.LightYellow), (int)PenSize.Thick);
+        private readonly Pen _highlighterPen = new Pen(Color.FromArgb(95, Color.Yellow), (int)PenSize.Thick);
         public FrmMainUI()
         {
             InitializeComponent();
@@ -51,13 +51,23 @@ namespace ImageEditor
         {
             picPreview.Image = Image.FromFile(fileName);
             _fileName = fileName;
+            toolsToolStripMenuItem.Enabled = true;
         }
 
         private void picPreview_MouseDown(object sender, MouseEventArgs e)
         {
             if (_selectedShape == Shape.Eraser)
             {
-
+                foreach (var path in _shapes)
+                {
+                    if (path.Path.IsVisible(e.X, e.Y))
+                    {
+                        _shapes.Remove(path);
+                        picPreview.Invalidate();
+                        break;
+                    }
+                }
+                return;
             }
             else if (_selectedShape == Shape.Pen || _selectedShape == Shape.Highlighter)
             {
@@ -86,7 +96,7 @@ namespace ImageEditor
                 picPreview.Invalidate();
             }
 
-            _selectedShape = Shape.Unknown;
+            //_selectedShape = Shape.Unknown;
         }
 
         private void picPreview_Paint(object sender, PaintEventArgs e)
@@ -104,51 +114,81 @@ namespace ImageEditor
         private void penToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _selectedShape = Shape.Pen;
+            penToolStripMenuItem.Checked = true;
+            highlighterToolStripMenuItem.Checked = false;
+            eraserToolStripMenuItem.Checked = false;
         }
 
         private void highlighterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _selectedShape = Shape.Highlighter;
+            penToolStripMenuItem.Checked = false;
+            highlighterToolStripMenuItem.Checked = true;
+            eraserToolStripMenuItem.Checked = false;
         }
 
         private void eraserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _selectedShape = Shape.Eraser;
+            penToolStripMenuItem.Checked = false;
+            highlighterToolStripMenuItem.Checked = false;
+            eraserToolStripMenuItem.Checked = true;
         }
 
         private void thinToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _selectedSize = PenSize.Fine;
+            thickToolStripMenuItem.Checked = false;
+            thinToolStripMenuItem.Checked = true;
+            mediumToolStripMenuItem.Checked = false;
             UpdatePen();
         }
 
         private void mediumToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _selectedSize = PenSize.Medium;
+            thickToolStripMenuItem.Checked = false;
+            thinToolStripMenuItem.Checked = false;
+            mediumToolStripMenuItem.Checked = true;
             UpdatePen();
         }
 
         private void thickToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _selectedSize = PenSize.Thick;
+            thickToolStripMenuItem.Checked = true;
+            thinToolStripMenuItem.Checked = false;
+            mediumToolStripMenuItem.Checked = false;
             UpdatePen();
         }
 
         private void redToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _selectedColor = Color.Red;
+            redToolStripMenuItem.Checked = true;
+            blueToolStripMenuItem.Checked = false;
+            greenToolStripMenuItem.Checked = false;
+            customToolStripMenuItem.Checked = false;
             UpdatePen();
         }
 
         private void blueToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _selectedColor = Color.Blue;
+            redToolStripMenuItem.Checked = false;
+            blueToolStripMenuItem.Checked = true;
+            greenToolStripMenuItem.Checked = false;
+            customToolStripMenuItem.Checked = false;
             UpdatePen();
         }
 
         private void greenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _selectedColor = Color.Green;
+            redToolStripMenuItem.Checked = false;
+            blueToolStripMenuItem.Checked = false;
+            greenToolStripMenuItem.Checked = true;
+            customToolStripMenuItem.Checked = false;
             UpdatePen();
         }
 
@@ -162,6 +202,10 @@ namespace ImageEditor
                 if (colorDialog.ShowDialog() == DialogResult.OK)
                 {
                     _selectedColor = colorDialog.Color;
+                    redToolStripMenuItem.Checked = false;
+                    blueToolStripMenuItem.Checked = false;
+                    greenToolStripMenuItem.Checked = false;
+                    customToolStripMenuItem.Checked = true;
                     UpdatePen();
                 }
             }
@@ -170,6 +214,11 @@ namespace ImageEditor
         private void UpdatePen()
         {
             _selectedPen = new Pen(_selectedColor, (float)_selectedSize);
+        }
+
+        private void fileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            saveToolStripMenuItem.Enabled = saveAsToolStripMenuItem.Enabled = _fileName.Length >= 1;
         }
     }
 }
