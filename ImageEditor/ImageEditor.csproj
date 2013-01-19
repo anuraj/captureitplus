@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="ImageEditorTool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendToScreeshotEditor.cs" />
     <EmbeddedResource Include="FrmMainUI.resx">
       <DependentUpon>FrmMainUI.cs</DependentUpon>
     </EmbeddedResource>

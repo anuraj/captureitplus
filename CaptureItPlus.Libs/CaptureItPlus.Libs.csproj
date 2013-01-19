@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="ISendToHost.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="NativeMAPI.cs" />
     <Compile Include="PluginConfig.cs" />
     <Compile Include="PluginData.cs" />
     <Compile Include="Utilities.cs" />

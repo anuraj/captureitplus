@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CaptureItPlus.Libs;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -19,6 +20,7 @@ namespace ImageEditor
         private Pen _selectedPen;
         private readonly Pen _highlighterPen = new Pen(Color.FromArgb(95, Color.Yellow), (int)PenSize.Thick);
         private bool _isSaved = false;
+
         public FrmMainUI()
         {
             InitializeComponent();
@@ -35,6 +37,24 @@ namespace ImageEditor
 
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!_isSaved && _shapes.Count >= 1)
+            {
+                var result = MessageBox.Show("Current Screenshot modified. Would you like to save it?",
+                    "Screenshot Editor", MessageBoxButtons.YesNoCancel);
+                if (result == DialogResult.Yes)
+                {
+                    SaveAsFile();
+                    if (!_isSaved)
+                    {
+                        return;
+                    }
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    return;
+                }
+            }
+
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.Filter = "PNG File|*.png|JPEG File|*.jpeg;*.jpg|BMP File|*.bmp|TIFF File|*.tiff|GIF File|*.gif|WMF File|*.wmf"; ;
@@ -235,7 +255,7 @@ namespace ImageEditor
 
         private void fileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            saveToolStripMenuItem.Enabled = saveAsToolStripMenuItem.Enabled = _fileName.Length >= 1;
+            sendToMailMenuItem6.Enabled = saveToolStripMenuItem.Enabled = saveAsToolStripMenuItem.Enabled = _fileName.Length >= 1;
         }
 
         private void FrmMainUI_Resize(object sender, EventArgs e)
@@ -285,10 +305,7 @@ namespace ImageEditor
 
                     _isSaved = true;
                 }
-                else
-                {
-                    Close();
-                }
+
             }
         }
 
@@ -347,16 +364,49 @@ namespace ImageEditor
             if (!_isSaved && _shapes.Count >= 1)
             {
                 var result = MessageBox.Show("Current Screenshot modified. Would you like to save it?",
-                    "Screenshot Editor", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    "Screenshot Editor", MessageBoxButtons.YesNoCancel);
                 if (result == DialogResult.Yes)
                 {
                     SaveAsFile();
+                    if (!_isSaved)
+                    {
+                        e.Cancel = true;
+                    }
                 }
                 else if (result == DialogResult.Cancel)
                 {
                     e.Cancel = true;
                 }
             }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string message = string.Format("Screenshot Editor for CaptureItPlus{0}{0}Copyright © {1} Anuraj.P{0}Licensed under GNU GPL v2{0}http://captureitplus.codeplex.com", Environment.NewLine, DateTime.Now.Year);
+            MessageBox.Show(message, "About", MessageBoxButtons.OK);
+        }
+
+        private void toolStripMenuItem5_DropDownOpening(object sender, EventArgs e)
+        {
+            copyToolStripMenuItem.Enabled = _fileName.Length >= 1;
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetImage(picPreview.Image);
+        }
+
+        private void sendToMailMenuItem6_Click(object sender, EventArgs e)
+        {
+            var mapi = new MAPI();
+            mapi.AddAttachment(_fileName);
+            mapi.SendMailPopup(string.Empty, _fileName);
+        }
+
+        private void toolsToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            penToolStripMenuItem.Enabled = highlighterToolStripMenuItem.Enabled 
+                = eraserToolStripMenuItem.Enabled = changeColorToolStripMenuItem.Enabled = _fileName.Length >= 1;
         }
     }
 }
