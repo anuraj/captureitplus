@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ImageEditor
@@ -11,11 +13,12 @@ namespace ImageEditor
         private string _fileName = string.Empty;
         private readonly List<CustomShape> _shapes;
         private GraphicsPath _graphicsPath;
-        private Shape _selectedShape = Shape.Unknown;
+        private Shape _selectedShape = Shape.Pen;
         private Color _selectedColor = Color.Red;
         private PenSize _selectedSize = PenSize.Fine;
         private Pen _selectedPen;
         private readonly Pen _highlighterPen = new Pen(Color.FromArgb(95, Color.Yellow), (int)PenSize.Thick);
+        private bool _isSaved = false;
         public FrmMainUI()
         {
             InitializeComponent();
@@ -34,7 +37,7 @@ namespace ImageEditor
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "PNG File|*.png|JPEG File|*.jpeg|BMP File|*.bmp|TIFF File|*.tiff|GIF File|*.gif|WMF File|*.wmf"; ;
+                openFileDialog.Filter = "PNG File|*.png|JPEG File|*.jpeg;*.jpg|BMP File|*.bmp|TIFF File|*.tiff|GIF File|*.gif|WMF File|*.wmf"; ;
                 openFileDialog.CheckFileExists = true;
                 openFileDialog.Multiselect = false;
                 openFileDialog.ReadOnlyChecked = false;
@@ -49,13 +52,23 @@ namespace ImageEditor
 
         private void LoadImage(string fileName)
         {
-            picPreview.Image = Image.FromFile(fileName);
-            _fileName = fileName;
-            toolsToolStripMenuItem.Enabled = true;
+            using (Image img = Image.FromFile(fileName))
+            {
+                _shapes.Clear();
+                picPreview.Image = new Bitmap(img);
+                _fileName = fileName;
+                toolsToolStripMenuItem.Enabled = true;
+                MoveImageToCenter();
+            }
         }
 
         private void picPreview_MouseDown(object sender, MouseEventArgs e)
         {
+            if (_fileName.Length <= 0)
+            {
+                return;
+            }
+
             if (_selectedShape == Shape.Eraser)
             {
                 foreach (var path in _shapes)
@@ -80,6 +93,12 @@ namespace ImageEditor
             if (_graphicsPath != null)
             {
                 _graphicsPath.AddLine(e.X, e.Y, e.X, e.Y);
+                using (Graphics graphics = picPreview.CreateGraphics())
+                {
+                    graphics.SmoothingMode = SmoothingMode.HighQuality;
+                    var pen = _selectedShape == Shape.Highlighter ? _highlighterPen : _selectedPen;
+                    graphics.DrawPath(pen, _graphicsPath);
+                }
             }
         }
 
@@ -95,8 +114,6 @@ namespace ImageEditor
                 _graphicsPath = null;
                 picPreview.Invalidate();
             }
-
-            //_selectedShape = Shape.Unknown;
         }
 
         private void picPreview_Paint(object sender, PaintEventArgs e)
@@ -219,6 +236,127 @@ namespace ImageEditor
         private void fileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             saveToolStripMenuItem.Enabled = saveAsToolStripMenuItem.Enabled = _fileName.Length >= 1;
+        }
+
+        private void FrmMainUI_Resize(object sender, EventArgs e)
+        {
+            MoveImageToCenter();
+        }
+
+        private void FrmMainUI_Activated(object sender, EventArgs e)
+        {
+            MoveImageToCenter();
+        }
+
+        private void MoveImageToCenter()
+        {
+            picPreview.Left = panel1.Width / 2 - picPreview.Width / 2;
+            picPreview.Top = panel1.Height / 2 - picPreview.Height / 2;
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ImageFormat imageFormat = GetImageFormat(_fileName);
+            DrawImageAndSave(_fileName, imageFormat);
+            _isSaved = true;
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveAsFile();
+        }
+
+        private void SaveAsFile()
+        {
+            string tempFilename = string.Empty;
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.FileName = Path.GetFileName(_fileName);
+                saveFileDialog.Filter = "PNG File|*.png|JPEG File|*.jpeg|BMP File|*.bmp|TIFF File|*.tiff|GIF File|*.gif|WMF File|*.wmf";
+                saveFileDialog.OverwritePrompt = true;
+                saveFileDialog.ShowHelp = false;
+                saveFileDialog.CheckPathExists = true;
+                saveFileDialog.AddExtension = true;
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    tempFilename = saveFileDialog.FileName;
+                    ImageFormat imageFormat = GetImageFormat(tempFilename);
+                    DrawImageAndSave(tempFilename, imageFormat);
+
+                    _isSaved = true;
+                }
+                else
+                {
+                    Close();
+                }
+            }
+        }
+
+        private static ImageFormat GetImageFormat(string filename)
+        {
+            ImageFormat imageFormat = ImageFormat.Png;
+            switch (Path.GetExtension(filename))
+            {
+                case ".bmp":
+                    imageFormat = ImageFormat.Bmp;
+                    break;
+                case ".jpg":
+                    imageFormat = ImageFormat.Jpeg;
+                    break;
+                case ".png":
+                    imageFormat = ImageFormat.Png;
+                    break;
+                case ".gif":
+                    imageFormat = ImageFormat.Gif;
+                    break;
+                case ".tiff":
+                    imageFormat = ImageFormat.Tiff;
+                    break;
+                case ".wmf":
+                    imageFormat = ImageFormat.Wmf;
+                    break;
+            }
+            return imageFormat;
+        }
+
+        private void DrawImageAndSave(string fileName, ImageFormat imageFormat)
+        {
+            Image image = picPreview.Image;
+            using (Graphics graphics = Graphics.FromImage(picPreview.Image))
+            {
+                if (_shapes.Count >= 1)
+                {
+                    graphics.SmoothingMode = SmoothingMode.HighQuality;
+                    foreach (var customShape in _shapes)
+                    {
+                        graphics.DrawPath(customShape.Pen, customShape.Path);
+                    }
+                }
+
+                image.Save(fileName, imageFormat);
+            }
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void FrmMainUI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!_isSaved && _shapes.Count >= 1)
+            {
+                var result = MessageBox.Show("Current Screenshot modified. Would you like to save it?",
+                    "Screenshot Editor", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    SaveAsFile();
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }
