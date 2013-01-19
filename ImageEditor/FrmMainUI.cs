@@ -393,7 +393,19 @@ namespace ImageEditor
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Clipboard.SetImage(picPreview.Image);
+            Image image = picPreview.Image;
+            using (Graphics graphics = Graphics.FromImage(picPreview.Image))
+            {
+                if (_shapes.Count >= 1)
+                {
+                    graphics.SmoothingMode = SmoothingMode.HighQuality;
+                    foreach (var customShape in _shapes)
+                    {
+                        graphics.DrawPath(customShape.Pen, customShape.Path);
+                    }
+                }
+            }
+            Clipboard.SetImage(image);
         }
 
         private void sendToMailMenuItem6_Click(object sender, EventArgs e)
