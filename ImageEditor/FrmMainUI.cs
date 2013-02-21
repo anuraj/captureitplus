@@ -89,23 +89,44 @@ namespace ImageEditor
                 return;
             }
 
-            if (_selectedShape == Shape.Eraser)
+            switch (_selectedShape)
             {
-
-                foreach (var path in _shapes)
-                {
-                    if (path.Path.IsVisible(e.X, e.Y))
+                case Shape.Unknown:
+                    break;
+                case Shape.Pen:
+                case Shape.Highlighter:
+                    _graphicsPath = new GraphicsPath();
+                    break;
+                case Shape.Eraser:
+                    foreach (var path in _shapes)
                     {
-                        _shapes.Remove(path);
-                        picPreview.Invalidate();
-                        break;
+                        if (path.Path.IsVisible(e.X, e.Y))
+                        {
+                            _shapes.Remove(path);
+                            picPreview.Invalidate();
+                            break;
+                        }
                     }
-                }
-                return;
-            }
-            else if (_selectedShape == Shape.Pen || _selectedShape == Shape.Highlighter)
-            {
-                _graphicsPath = new GraphicsPath();
+                    break;
+                case Shape.Text:
+                    frmInsertText frmInsertTextDlg = new frmInsertText();
+                    if (frmInsertTextDlg.ShowDialog(this) == DialogResult.OK)
+                    {
+                        CustomShape customShape = new CustomShape();
+                        customShape.Shape = Shape.Text;
+                        customShape.Pen = new Pen(_selectedColor, 1);
+                        GraphicsPath graphicsPath = new GraphicsPath();
+                        graphicsPath.AddString(frmInsertTextDlg.SelectedText, 
+                            frmInsertTextDlg.SelectedFont.FontFamily, (int)frmInsertTextDlg.SelectedFont.Style,
+                            frmInsertTextDlg.SelectedFont.Size, e.Location, StringFormat.GenericTypographic);
+                        graphicsPath.FillMode = FillMode.Winding;
+                        customShape.Path = graphicsPath;
+                        _shapes.Add(customShape);
+                        picPreview.Invalidate();
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -145,6 +166,10 @@ namespace ImageEditor
                 foreach (var customShape in _shapes)
                 {
                     e.Graphics.DrawPath(customShape.Pen, customShape.Path);
+                    if (customShape.Shape == Shape.Text)
+                    {
+                        e.Graphics.FillPath(_selectedPen.Brush, customShape.Path);
+                    }
                 }
             }
         }
@@ -191,6 +216,7 @@ namespace ImageEditor
             thickToolStripMenuItem.Checked = false;
             thinToolStripMenuItem.Checked = false;
             mediumToolStripMenuItem.Checked = true;
+            TextToolStripMenuItem.Checked = false;
             UpdatePen();
         }
 
@@ -199,6 +225,7 @@ namespace ImageEditor
             _selectedSize = PenSize.Thick;
             thickToolStripMenuItem.Checked = true;
             thinToolStripMenuItem.Checked = false;
+            TextToolStripMenuItem.Checked = false;
             mediumToolStripMenuItem.Checked = false;
             UpdatePen();
         }
@@ -210,6 +237,7 @@ namespace ImageEditor
             blueToolStripMenuItem.Checked = false;
             greenToolStripMenuItem.Checked = false;
             customToolStripMenuItem.Checked = false;
+            TextToolStripMenuItem.Checked = false;
             UpdatePen();
         }
 
@@ -421,8 +449,30 @@ namespace ImageEditor
 
         private void toolsToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            penToolStripMenuItem.Enabled = highlighterToolStripMenuItem.Enabled
+            TextToolStripMenuItem.Enabled = penToolStripMenuItem.Enabled = highlighterToolStripMenuItem.Enabled
                 = eraserToolStripMenuItem.Enabled = changeColorToolStripMenuItem.Enabled = _fileName.Length >= 1;
+        }
+
+        private void TextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _selectedShape = Shape.Text;
+            redToolStripMenuItem.Checked = true;
+            blueToolStripMenuItem.Checked = false;
+            greenToolStripMenuItem.Checked = false;
+            customToolStripMenuItem.Checked = false;
+            TextToolStripMenuItem.Checked = false;
+            picPreview.Cursor = new Cursor(Properties.Resources.Text.GetHicon());
+        }
+
+        private void DefaultButton_Click(object sender, EventArgs e)
+        {
+            picPreview.Cursor = Cursors.Default;
+            _selectedShape = Shape.Unknown;
+            redToolStripMenuItem.Checked = false;
+            blueToolStripMenuItem.Checked = false;
+            greenToolStripMenuItem.Checked = false;
+            customToolStripMenuItem.Checked = false;
+            TextToolStripMenuItem.Checked = false;
         }
     }
 }
