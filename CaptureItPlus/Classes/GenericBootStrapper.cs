@@ -15,7 +15,12 @@ namespace CaptureItPlus
             set;
         }
 
-        public void Compose(string pluginDirectory = null)
+        public void Compose()
+        {
+            Compose(null);
+        }
+
+        public void Compose(string pluginDirectory)
         {
             try
             {

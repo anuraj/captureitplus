@@ -35,8 +35,12 @@
             }
             return outputPath;
         }
+        public static string SaveImage(Bitmap bitmap)
+        {
+            return SaveImage(bitmap, string.Empty);
+        }
 
-        public static string SaveImage(Bitmap bitmap, string fileNameWithPath = "")
+        public static string SaveImage(Bitmap bitmap, string fileNameWithPath)
         {
             ImageFormat imageFormat = GetImageFormat(Properties.Settings.Default.ImageFormat);
             string fullPath = string.Empty;

@@ -19,7 +19,13 @@
         private int _x;
         private int _y;
         private bool _gridLines = false;
-        public frmOverlay(string fileName, Common.CaptureModes captureMode = Common.CaptureModes.Rectangle)
+
+        public frmOverlay(string fileName)
+            : this(fileName, Common.CaptureModes.Rectangle)
+        {
+
+        }
+        public frmOverlay(string fileName, Common.CaptureModes captureMode)
         {
             InitializeComponent();
             Program.IsCaptureIsActive = true;

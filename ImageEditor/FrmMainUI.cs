@@ -91,6 +91,7 @@ namespace ImageEditor
 
             if (_selectedShape == Shape.Eraser)
             {
+
                 foreach (var path in _shapes)
                 {
                     if (path.Path.IsVisible(e.X, e.Y))
@@ -154,6 +155,7 @@ namespace ImageEditor
             penToolStripMenuItem.Checked = true;
             highlighterToolStripMenuItem.Checked = false;
             eraserToolStripMenuItem.Checked = false;
+            picPreview.Cursor = new Cursor(Properties.Resources.Pen.GetHicon());
         }
 
         private void highlighterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -162,6 +164,7 @@ namespace ImageEditor
             penToolStripMenuItem.Checked = false;
             highlighterToolStripMenuItem.Checked = true;
             eraserToolStripMenuItem.Checked = false;
+            picPreview.Cursor = new Cursor(Properties.Resources.Highlighter.GetHicon());
         }
 
         private void eraserToolStripMenuItem_Click(object sender, EventArgs e)
@@ -170,6 +173,7 @@ namespace ImageEditor
             penToolStripMenuItem.Checked = false;
             highlighterToolStripMenuItem.Checked = false;
             eraserToolStripMenuItem.Checked = true;
+            picPreview.Cursor = new Cursor(Properties.Resources.Eraser.GetHicon());
         }
 
         private void thinToolStripMenuItem_Click(object sender, EventArgs e)
@@ -417,7 +421,7 @@ namespace ImageEditor
 
         private void toolsToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            penToolStripMenuItem.Enabled = highlighterToolStripMenuItem.Enabled 
+            penToolStripMenuItem.Enabled = highlighterToolStripMenuItem.Enabled
                 = eraserToolStripMenuItem.Enabled = changeColorToolStripMenuItem.Enabled = _fileName.Length >= 1;
         }
     }
