@@ -30,7 +30,7 @@ namespace ImageEditor
 
     internal enum Shape
     {
-        Unknown = 0, Pen = 1, Highlighter = 2, Eraser = 3, Text = 4
+        Unknown = 0, Pen = 1, Highlighter = 2, Eraser = 3, Text = 4, Selection = 5
     }
 
     internal enum PenSize

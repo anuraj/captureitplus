@@ -47,6 +47,7 @@
             this.penToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.highlighterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eraserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.changeColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,19 +63,19 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DrawingTools = new System.Windows.Forms.ToolStrip();
-            this.Sep1 = new System.Windows.Forms.ToolStripSeparator();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.TextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.picPreview = new System.Windows.Forms.PictureBox();
             this.OpenImageButton = new System.Windows.Forms.ToolStripButton();
             this.SaveImageButton = new System.Windows.Forms.ToolStripButton();
             this.CopyImageButton = new System.Windows.Forms.ToolStripButton();
             this.SendImageButton = new System.Windows.Forms.ToolStripButton();
+            this.Sep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.DefaultButton = new System.Windows.Forms.ToolStripButton();
             this.PenButton = new System.Windows.Forms.ToolStripButton();
             this.HighlighterButton = new System.Windows.Forms.ToolStripButton();
             this.EraserButton = new System.Windows.Forms.ToolStripButton();
             this.TextButton = new System.Windows.Forms.ToolStripButton();
-            this.DefaultButton = new System.Windows.Forms.ToolStripButton();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.picPreview = new System.Windows.Forms.PictureBox();
+            this.SelectMenuToolStripItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.DrawingTools.SuspendLayout();
@@ -203,6 +204,7 @@
             this.highlighterToolStripMenuItem,
             this.eraserToolStripMenuItem,
             this.TextToolStripMenuItem,
+            this.SelectMenuToolStripItem,
             this.toolStripMenuItem3,
             this.changeColorToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
@@ -232,6 +234,13 @@
             this.eraserToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.eraserToolStripMenuItem.Text = "&Eraser";
             this.eraserToolStripMenuItem.Click += new System.EventHandler(this.eraserToolStripMenuItem_Click);
+            // 
+            // TextToolStripMenuItem
+            // 
+            this.TextToolStripMenuItem.Name = "TextToolStripMenuItem";
+            this.TextToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.TextToolStripMenuItem.Text = "&Text";
+            this.TextToolStripMenuItem.Click += new System.EventHandler(this.TextToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -361,43 +370,6 @@
             this.DrawingTools.TabIndex = 3;
             this.DrawingTools.Text = "toolStrip1";
             // 
-            // Sep1
-            // 
-            this.Sep1.Name = "Sep1";
-            this.Sep1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // panel1
-            // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.picPreview);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 49);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(796, 470);
-            this.panel1.TabIndex = 4;
-            // 
-            // TextToolStripMenuItem
-            // 
-            this.TextToolStripMenuItem.Name = "TextToolStripMenuItem";
-            this.TextToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.TextToolStripMenuItem.Text = "&Text";
-            this.TextToolStripMenuItem.Click += new System.EventHandler(this.TextToolStripMenuItem_Click);
-            // 
-            // picPreview
-            // 
-            this.picPreview.BackColor = System.Drawing.Color.White;
-            this.picPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picPreview.Location = new System.Drawing.Point(0, 0);
-            this.picPreview.Name = "picPreview";
-            this.picPreview.Size = new System.Drawing.Size(795, 470);
-            this.picPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.picPreview.TabIndex = 0;
-            this.picPreview.TabStop = false;
-            this.picPreview.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picPreview_MouseMove);
-            this.picPreview.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picPreview_MouseDown);
-            this.picPreview.Paint += new System.Windows.Forms.PaintEventHandler(this.picPreview_Paint);
-            this.picPreview.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picPreview_MouseUp);
-            // 
             // OpenImageButton
             // 
             this.OpenImageButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -439,6 +411,22 @@
             this.SendImageButton.Text = "Send Image";
             this.SendImageButton.Click += new System.EventHandler(this.sendToMailMenuItem6_Click);
             // 
+            // Sep1
+            // 
+            this.Sep1.Name = "Sep1";
+            this.Sep1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // DefaultButton
+            // 
+            this.DefaultButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.DefaultButton.Image = global::ImageEditor.Properties.Resources.Pointer;
+            this.DefaultButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.DefaultButton.Name = "DefaultButton";
+            this.DefaultButton.Size = new System.Drawing.Size(23, 22);
+            this.DefaultButton.Text = "toolStripButton1";
+            this.DefaultButton.ToolTipText = "Pointer";
+            this.DefaultButton.Click += new System.EventHandler(this.DefaultButton_Click);
+            // 
             // PenButton
             // 
             this.PenButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -479,16 +467,37 @@
             this.TextButton.Text = "Insert Text";
             this.TextButton.Click += new System.EventHandler(this.TextToolStripMenuItem_Click);
             // 
-            // DefaultButton
+            // panel1
             // 
-            this.DefaultButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.DefaultButton.Image = global::ImageEditor.Properties.Resources.Pointer;
-            this.DefaultButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.DefaultButton.Name = "DefaultButton";
-            this.DefaultButton.Size = new System.Drawing.Size(23, 22);
-            this.DefaultButton.Text = "toolStripButton1";
-            this.DefaultButton.ToolTipText = "Pointer";
-            this.DefaultButton.Click += new System.EventHandler(this.DefaultButton_Click);
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.picPreview);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 49);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(796, 470);
+            this.panel1.TabIndex = 4;
+            // 
+            // picPreview
+            // 
+            this.picPreview.BackColor = System.Drawing.Color.White;
+            this.picPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picPreview.Location = new System.Drawing.Point(0, 0);
+            this.picPreview.Name = "picPreview";
+            this.picPreview.Size = new System.Drawing.Size(795, 470);
+            this.picPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picPreview.TabIndex = 0;
+            this.picPreview.TabStop = false;
+            this.picPreview.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picPreview_MouseMove);
+            this.picPreview.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picPreview_MouseDown);
+            this.picPreview.Paint += new System.Windows.Forms.PaintEventHandler(this.picPreview_Paint);
+            this.picPreview.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picPreview_MouseUp);
+            // 
+            // SelectMenuToolStripItem
+            // 
+            this.SelectMenuToolStripItem.Name = "SelectMenuToolStripItem";
+            this.SelectMenuToolStripItem.Size = new System.Drawing.Size(153, 22);
+            this.SelectMenuToolStripItem.Text = "&Select";
+            this.SelectMenuToolStripItem.Click += new System.EventHandler(this.SelectMenuToolStripItem_Click);
             // 
             // FrmMainUI
             // 
@@ -570,6 +579,7 @@
         private System.Windows.Forms.ToolStripMenuItem TextToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton TextButton;
         private System.Windows.Forms.ToolStripButton DefaultButton;
+        private System.Windows.Forms.ToolStripMenuItem SelectMenuToolStripItem;
     }
 }
 

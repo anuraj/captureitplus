@@ -20,7 +20,8 @@ namespace ImageEditor
         private Pen _selectedPen;
         private readonly Pen _highlighterPen = new Pen(Color.FromArgb(95, Color.Yellow), (int)PenSize.Thick);
         private bool _isSaved = false;
-
+        private CustomShape _shape;
+        private Point _firstPoint;
         public FrmMainUI()
         {
             InitializeComponent();
@@ -88,7 +89,7 @@ namespace ImageEditor
             {
                 return;
             }
-
+            _firstPoint = new Point(e.X, e.Y);
             switch (_selectedShape)
             {
                 case Shape.Unknown:
@@ -116,13 +117,28 @@ namespace ImageEditor
                         customShape.Shape = Shape.Text;
                         customShape.Pen = new Pen(_selectedColor, 1);
                         GraphicsPath graphicsPath = new GraphicsPath();
-                        graphicsPath.AddString(frmInsertTextDlg.SelectedText, 
+                        graphicsPath.AddString(frmInsertTextDlg.SelectedText,
                             frmInsertTextDlg.SelectedFont.FontFamily, (int)frmInsertTextDlg.SelectedFont.Style,
                             frmInsertTextDlg.SelectedFont.Size, e.Location, StringFormat.GenericTypographic);
                         graphicsPath.FillMode = FillMode.Winding;
                         customShape.Path = graphicsPath;
                         _shapes.Add(customShape);
                         picPreview.Invalidate();
+                    }
+                    break;
+                case Shape.Selection:
+                    picPreview.Refresh();
+                    foreach (var shape in _shapes)
+                    {
+                        if (shape.Path.GetBounds().Contains(e.Location))
+                        {
+                            var rectf = shape.Path.GetBounds();
+                            var rect = new Rectangle((int)rectf.X, (int)rectf.Y, (int)rectf.Width, (int)rectf.Height);
+                            var graphics = picPreview.CreateGraphics();
+                            ControlPaint.DrawFocusRectangle(graphics, rect);
+                            _shape = shape;
+                            break;
+                        }
                     }
                     break;
                 default:
@@ -156,6 +172,11 @@ namespace ImageEditor
                 _graphicsPath = null;
                 picPreview.Invalidate();
             }
+
+            if (null != _shape)
+            {
+                _shape = null;
+            }
         }
 
         private void picPreview_Paint(object sender, PaintEventArgs e)
@@ -180,6 +201,8 @@ namespace ImageEditor
             penToolStripMenuItem.Checked = true;
             highlighterToolStripMenuItem.Checked = false;
             eraserToolStripMenuItem.Checked = false;
+            SelectMenuToolStripItem.Checked = false;
+            TextToolStripMenuItem.Checked = false;
             picPreview.Cursor = new Cursor(Properties.Resources.Pen.GetHicon());
         }
 
@@ -189,6 +212,8 @@ namespace ImageEditor
             penToolStripMenuItem.Checked = false;
             highlighterToolStripMenuItem.Checked = true;
             eraserToolStripMenuItem.Checked = false;
+            SelectMenuToolStripItem.Checked = false;
+            TextToolStripMenuItem.Checked = false;
             picPreview.Cursor = new Cursor(Properties.Resources.Highlighter.GetHicon());
         }
 
@@ -198,6 +223,8 @@ namespace ImageEditor
             penToolStripMenuItem.Checked = false;
             highlighterToolStripMenuItem.Checked = false;
             eraserToolStripMenuItem.Checked = true;
+            SelectMenuToolStripItem.Checked = false;
+            TextToolStripMenuItem.Checked = false;
             picPreview.Cursor = new Cursor(Properties.Resources.Eraser.GetHicon());
         }
 
@@ -216,7 +243,6 @@ namespace ImageEditor
             thickToolStripMenuItem.Checked = false;
             thinToolStripMenuItem.Checked = false;
             mediumToolStripMenuItem.Checked = true;
-            TextToolStripMenuItem.Checked = false;
             UpdatePen();
         }
 
@@ -225,7 +251,6 @@ namespace ImageEditor
             _selectedSize = PenSize.Thick;
             thickToolStripMenuItem.Checked = true;
             thinToolStripMenuItem.Checked = false;
-            TextToolStripMenuItem.Checked = false;
             mediumToolStripMenuItem.Checked = false;
             UpdatePen();
         }
@@ -237,7 +262,7 @@ namespace ImageEditor
             blueToolStripMenuItem.Checked = false;
             greenToolStripMenuItem.Checked = false;
             customToolStripMenuItem.Checked = false;
-            TextToolStripMenuItem.Checked = false;
+
             UpdatePen();
         }
 
@@ -456,11 +481,11 @@ namespace ImageEditor
         private void TextToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _selectedShape = Shape.Text;
-            redToolStripMenuItem.Checked = true;
-            blueToolStripMenuItem.Checked = false;
-            greenToolStripMenuItem.Checked = false;
-            customToolStripMenuItem.Checked = false;
-            TextToolStripMenuItem.Checked = false;
+            penToolStripMenuItem.Checked = false;
+            highlighterToolStripMenuItem.Checked = false;
+            eraserToolStripMenuItem.Checked = true;
+            SelectMenuToolStripItem.Checked = false;
+            TextToolStripMenuItem.Checked = true;
             picPreview.Cursor = new Cursor(Properties.Resources.Text.GetHicon());
         }
 
@@ -472,6 +497,17 @@ namespace ImageEditor
             blueToolStripMenuItem.Checked = false;
             greenToolStripMenuItem.Checked = false;
             customToolStripMenuItem.Checked = false;
+            TextToolStripMenuItem.Checked = false;
+        }
+
+        private void SelectMenuToolStripItem_Click(object sender, EventArgs e)
+        {
+            picPreview.Cursor = Cursors.Default;
+            _selectedShape = Shape.Selection;
+            penToolStripMenuItem.Checked = false;
+            highlighterToolStripMenuItem.Checked = false;
+            eraserToolStripMenuItem.Checked = false;
+            SelectMenuToolStripItem.Checked = true;
             TextToolStripMenuItem.Checked = false;
         }
     }
