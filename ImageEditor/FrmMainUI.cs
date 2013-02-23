@@ -21,7 +21,8 @@ namespace ImageEditor
         private readonly Pen _highlighterPen;
         private bool _isSaved = false;
         private CustomShape _shape;
-        private Point _firstPoint;
+        private int _x;
+        private int _y;
 
         public FrmMainUI()
         {
@@ -91,7 +92,10 @@ namespace ImageEditor
             {
                 return;
             }
-            _firstPoint = new Point(e.X, e.Y);
+
+            _x = e.X;
+            _y = e.Y;
+
             switch (_selectedShape)
             {
                 case Shape.Unknown:
@@ -137,7 +141,7 @@ namespace ImageEditor
                             var rectf = shape.Path.GetBounds();
                             var rect = new Rectangle((int)rectf.X, (int)rectf.Y, (int)rectf.Width, (int)rectf.Height);
                             var graphics = picPreview.CreateGraphics();
-                            ControlPaint.DrawFocusRectangle(graphics, rect);
+                            ControlPaint.DrawReversibleFrame(picPreview.RectangleToScreen(rect), Color.BurlyWood, FrameStyle.Dashed);
                             _shape = shape;
                             break;
                         }
@@ -159,6 +163,16 @@ namespace ImageEditor
                     var pen = _selectedShape == Shape.Highlighter ? _highlighterPen : _selectedPen;
                     graphics.DrawPath(pen, _graphicsPath);
                 }
+            }
+
+            if (null != _shape)
+            {
+                Matrix matrix = new Matrix();
+                matrix.Translate(e.X - _x, e.Y - _y);
+                _shape.Path.Transform(matrix);
+                _x = e.X;
+                _y = e.Y;
+                picPreview.Invalidate();
             }
         }
 
@@ -394,6 +408,10 @@ namespace ImageEditor
                     foreach (var customShape in _shapes)
                     {
                         graphics.DrawPath(customShape.Pen, customShape.Path);
+                        if (customShape.Shape == Shape.Text)
+                        {
+                            graphics.FillPath(_selectedPen.Brush, customShape.Path);
+                        }
                     }
                 }
 
@@ -473,17 +491,6 @@ namespace ImageEditor
             _selectedShape = Shape.Text;
             CheckMenuItem(TextToolStripMenuItem);
             picPreview.Cursor = new Cursor(Properties.Resources.Text.GetHicon());
-        }
-
-        private void DefaultButton_Click(object sender, EventArgs e)
-        {
-            picPreview.Cursor = Cursors.Default;
-            _selectedShape = Shape.Unknown;
-            redToolStripMenuItem.Checked = false;
-            blueToolStripMenuItem.Checked = false;
-            greenToolStripMenuItem.Checked = false;
-            customToolStripMenuItem.Checked = false;
-            TextToolStripMenuItem.Checked = false;
         }
 
         private void SelectMenuToolStripItem_Click(object sender, EventArgs e)
