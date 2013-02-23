@@ -18,14 +18,16 @@ namespace ImageEditor
         private Color _selectedColor = Color.Red;
         private PenSize _selectedSize = PenSize.Fine;
         private Pen _selectedPen;
-        private readonly Pen _highlighterPen = new Pen(Color.FromArgb(95, Color.Yellow), (int)PenSize.Thick);
+        private readonly Pen _highlighterPen;
         private bool _isSaved = false;
         private CustomShape _shape;
         private Point _firstPoint;
+
         public FrmMainUI()
         {
             InitializeComponent();
             _shapes = new List<CustomShape>();
+            _highlighterPen = new Pen(Color.FromArgb(95, Color.Yellow), (int)PenSize.Thick);
             UpdatePen();
         }
 
@@ -198,33 +200,21 @@ namespace ImageEditor
         private void penToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _selectedShape = Shape.Pen;
-            penToolStripMenuItem.Checked = true;
-            highlighterToolStripMenuItem.Checked = false;
-            eraserToolStripMenuItem.Checked = false;
-            SelectMenuToolStripItem.Checked = false;
-            TextToolStripMenuItem.Checked = false;
+            CheckMenuItem(penToolStripMenuItem);
             picPreview.Cursor = new Cursor(Properties.Resources.Pen.GetHicon());
         }
 
         private void highlighterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _selectedShape = Shape.Highlighter;
-            penToolStripMenuItem.Checked = false;
-            highlighterToolStripMenuItem.Checked = true;
-            eraserToolStripMenuItem.Checked = false;
-            SelectMenuToolStripItem.Checked = false;
-            TextToolStripMenuItem.Checked = false;
+            CheckMenuItem(highlighterToolStripMenuItem);
             picPreview.Cursor = new Cursor(Properties.Resources.Highlighter.GetHicon());
         }
 
         private void eraserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _selectedShape = Shape.Eraser;
-            penToolStripMenuItem.Checked = false;
-            highlighterToolStripMenuItem.Checked = false;
-            eraserToolStripMenuItem.Checked = true;
-            SelectMenuToolStripItem.Checked = false;
-            TextToolStripMenuItem.Checked = false;
+            CheckMenuItem(eraserToolStripMenuItem);
             picPreview.Cursor = new Cursor(Properties.Resources.Eraser.GetHicon());
         }
 
@@ -481,11 +471,7 @@ namespace ImageEditor
         private void TextToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _selectedShape = Shape.Text;
-            penToolStripMenuItem.Checked = false;
-            highlighterToolStripMenuItem.Checked = false;
-            eraserToolStripMenuItem.Checked = true;
-            SelectMenuToolStripItem.Checked = false;
-            TextToolStripMenuItem.Checked = true;
+            CheckMenuItem(TextToolStripMenuItem);
             picPreview.Cursor = new Cursor(Properties.Resources.Text.GetHicon());
         }
 
@@ -504,11 +490,29 @@ namespace ImageEditor
         {
             picPreview.Cursor = Cursors.Default;
             _selectedShape = Shape.Selection;
-            penToolStripMenuItem.Checked = false;
-            highlighterToolStripMenuItem.Checked = false;
-            eraserToolStripMenuItem.Checked = false;
-            SelectMenuToolStripItem.Checked = true;
-            TextToolStripMenuItem.Checked = false;
+            CheckMenuItem(SelectMenuToolStripItem);
+        }
+
+        private void CheckMenuItem(ToolStripMenuItem menuItem)
+        {
+            ToolStripMenuItem[] menus = { 
+                                            penToolStripMenuItem, 
+                                            highlighterToolStripMenuItem, 
+                                            eraserToolStripMenuItem, 
+                                            SelectMenuToolStripItem, 
+                                            TextToolStripMenuItem 
+                                        };
+            foreach (var menu in menus)
+            {
+                if (menu == menuItem)
+                {
+                    menu.Checked = true;
+                }
+                else
+                {
+                    menu.Checked = false;
+                }
+            }
         }
     }
 }
