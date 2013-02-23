@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
+using System.Text;
 using System.Xml.Serialization;
 
 namespace CaptureItPlus.Libs
@@ -37,31 +36,32 @@ namespace CaptureItPlus.Libs
             }
         }
 
-        public static string GetPluginConfigurationPath()
+        private static string GetPluginConfigurationPath(string fileName)
         {
-            return Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CaptureItPlus"), "sendto.config");
+            string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CaptureItPlus");
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            return Path.Combine(folderPath, fileName);
         }
 
-        public static T DeserializeFromFile<T>(string fileName)
+        public static T ReadFromConfigFile<T>(string fileName)
         {
-            if (!string.IsNullOrEmpty(fileName))
+            using (StreamReader streamReader = new StreamReader(GetPluginConfigurationPath(Path.ChangeExtension(fileName,"cnf"))))
             {
-                try
-                {
-                    using (StreamReader stringWriter = new StreamReader(fileName))
-                    {
-                        XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
-                        return (T)xmlSerializer.Deserialize(stringWriter);
-                    }
-                }
-                catch
-                {
-                    return default(T);
-                }
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+                return (T)xmlSerializer.Deserialize(streamReader);
             }
-            else
+        }
+
+        public static void WriteToConfigFile<T>(T o, string fileName)
+        {
+            using (StreamWriter streamWriter = new StreamWriter(GetPluginConfigurationPath(Path.ChangeExtension(fileName, "cnf"))))
             {
-                return default(T);
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(T));
+                xmlSerializer.Serialize(streamWriter, o);
             }
         }
     }

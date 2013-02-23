@@ -53,8 +53,6 @@
     <Compile Include="ISendToHost.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="NativeMAPI.cs" />
-    <Compile Include="PluginConfig.cs" />
-    <Compile Include="PluginData.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="ISendTo.cs" />
     <Compile Include="ITool.cs" />

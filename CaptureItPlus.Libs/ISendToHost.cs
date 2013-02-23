@@ -6,7 +6,7 @@ namespace CaptureItPlus.Libs
 {
     public interface ISendToHost
     {
-        void SaveConfiguration(string pluginName, PluginConfiguration configuration);
-        PluginConfiguration LoadConfiguration(string pluginName);
+        void SaveConfiguration<T>(string pluginName, T configuration);
+        T LoadConfiguration<T>(string pluginName);
     }
 }

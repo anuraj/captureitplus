@@ -4,7 +4,8 @@
     using System.Windows.Forms;
     using CaptureItPlus.Libs;
     using System;
-    
+    using System.Collections.Generic;
+
     public class SendToClipboard : ISendTo
     {
         private string _fileName = string.Empty;
@@ -20,6 +21,7 @@
             {
                 return;
             }
+
             _fileName = filename;
             using (var image = Image.FromFile(filename))
             {
@@ -54,5 +56,21 @@
         }
 
         #endregion
+    }
+
+    public class SendToClipboadConfig
+    {
+        private bool _copyFileName;
+        public bool CopyFileName
+        {
+            get
+            {
+                return _copyFileName;
+            }
+            set
+            {
+                _copyFileName = value;
+            }
+        }
     }
 }

@@ -19,7 +19,7 @@
         private IEnumerable<ISendTo> _sendToPlugins;
         private KeyboardMapper _keyboardMapper;
         private bool _isShortcutsEnabled;
-        private IList<PluginConfiguration> _pluginConfigurations;
+
         #endregion
 
         public frmSettings()
@@ -424,32 +424,14 @@
             ShowHelp();
         }
 
-        public void SaveConfiguration(string pluginName, PluginConfiguration configuration)
+        public void SaveConfiguration<T>(string pluginName, T configuration)
         {
-            throw new NotImplementedException();
+            Utilities.WriteToConfigFile<T>(configuration, pluginName);
         }
 
-        public PluginConfiguration LoadConfiguration(string pluginName)
+        public T LoadConfiguration<T>(string pluginName)
         {
-            if (_pluginConfigurations == null)
-            {
-                _pluginConfigurations = Utilities.DeserializeFromFile<IList<PluginConfiguration>>(Utilities.GetPluginConfigurationPath());
-            }
-
-            PluginConfiguration result = null;
-            if (_pluginConfigurations != null)
-            {
-                foreach (var pluginConfiguration in _pluginConfigurations)
-                {
-                    if (pluginConfiguration.Name.Equals(pluginName, StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        result = pluginConfiguration;
-                        break;
-                    }
-                }
-            }
-
-            return result;
+            return Utilities.ReadFromConfigFile<T>(pluginName);
         }
     }
 }
