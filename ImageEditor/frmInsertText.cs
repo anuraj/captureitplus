@@ -27,6 +27,7 @@ namespace ImageEditor
         {
             using (FontDialog fontDlg = new FontDialog())
             {
+                fontDlg.Font = _selectedFont;
                 fontDlg.FontMustExist = true;
                 fontDlg.ShowEffects = false;
                 fontDlg.ShowColor = false;
@@ -37,6 +38,11 @@ namespace ImageEditor
                     _selectedFont = fontDlg.Font;
                 }
             }
+        }
+
+
+        private void txtToInsert_KeyUp(object sender, KeyEventArgs e)
+        {
         }
     }
 }

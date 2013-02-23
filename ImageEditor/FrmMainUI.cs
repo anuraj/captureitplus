@@ -107,7 +107,7 @@ namespace ImageEditor
                 case Shape.Eraser:
                     foreach (var path in _shapes)
                     {
-                        if (path.Path.IsVisible(e.X, e.Y))
+                        if (path.Path.GetBounds().Contains(e.Location))
                         {
                             _shapes.Remove(path);
                             picPreview.Invalidate();

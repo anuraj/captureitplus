@@ -30,9 +30,9 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.txtToInsert = new System.Windows.Forms.TextBox();
-            this.cmdCustomFont = new System.Windows.Forms.Button();
             this.cmdCancel = new System.Windows.Forms.Button();
             this.cmdOk = new System.Windows.Forms.Button();
+            this.FontOptions = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -46,26 +46,19 @@
             // 
             // txtToInsert
             // 
-            this.txtToInsert.Location = new System.Drawing.Point(53, 12);
+            this.txtToInsert.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtToInsert.Location = new System.Drawing.Point(53, 8);
             this.txtToInsert.MaxLength = 200;
+            this.txtToInsert.Multiline = true;
             this.txtToInsert.Name = "txtToInsert";
-            this.txtToInsert.Size = new System.Drawing.Size(292, 20);
+            this.txtToInsert.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtToInsert.Size = new System.Drawing.Size(441, 58);
             this.txtToInsert.TabIndex = 1;
-            // 
-            // cmdCustomFont
-            // 
-            this.cmdCustomFont.Image = global::ImageEditor.Properties.Resources.Text;
-            this.cmdCustomFont.Location = new System.Drawing.Point(351, 6);
-            this.cmdCustomFont.Name = "cmdCustomFont";
-            this.cmdCustomFont.Size = new System.Drawing.Size(30, 32);
-            this.cmdCustomFont.TabIndex = 2;
-            this.cmdCustomFont.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.cmdCustomFont.UseVisualStyleBackColor = true;
-            this.cmdCustomFont.Click += new System.EventHandler(this.cmdCustomFont_Click);
             // 
             // cmdCancel
             // 
-            this.cmdCancel.Location = new System.Drawing.Point(305, 45);
+            this.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cmdCancel.Location = new System.Drawing.Point(419, 72);
             this.cmdCancel.Name = "cmdCancel";
             this.cmdCancel.Size = new System.Drawing.Size(75, 23);
             this.cmdCancel.TabIndex = 3;
@@ -75,23 +68,32 @@
             // cmdOk
             // 
             this.cmdOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.cmdOk.Location = new System.Drawing.Point(224, 45);
+            this.cmdOk.Location = new System.Drawing.Point(338, 72);
             this.cmdOk.Name = "cmdOk";
             this.cmdOk.Size = new System.Drawing.Size(75, 23);
             this.cmdOk.TabIndex = 3;
             this.cmdOk.Text = "OK";
             this.cmdOk.UseVisualStyleBackColor = true;
             // 
+            // FontOptions
+            // 
+            this.FontOptions.Location = new System.Drawing.Point(53, 72);
+            this.FontOptions.Name = "FontOptions";
+            this.FontOptions.Size = new System.Drawing.Size(105, 23);
+            this.FontOptions.TabIndex = 4;
+            this.FontOptions.Text = "Font Options";
+            this.FontOptions.UseVisualStyleBackColor = true;
+            this.FontOptions.Click += new System.EventHandler(this.cmdCustomFont_Click);
+            // 
             // frmInsertText
             // 
-            this.AcceptButton = this.cmdOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cmdCancel;
-            this.ClientSize = new System.Drawing.Size(396, 78);
+            this.ClientSize = new System.Drawing.Size(500, 98);
+            this.Controls.Add(this.FontOptions);
             this.Controls.Add(this.cmdOk);
             this.Controls.Add(this.cmdCancel);
-            this.Controls.Add(this.cmdCustomFont);
             this.Controls.Add(this.txtToInsert);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -111,8 +113,8 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtToInsert;
-        private System.Windows.Forms.Button cmdCustomFont;
         private System.Windows.Forms.Button cmdCancel;
         private System.Windows.Forms.Button cmdOk;
+        private System.Windows.Forms.Button FontOptions;
     }
 }
