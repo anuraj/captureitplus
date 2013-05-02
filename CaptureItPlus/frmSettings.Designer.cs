@@ -82,8 +82,8 @@
             this.llDownload = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lblYearInfo = new System.Windows.Forms.Label();
+            this.lblVersion = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.ctxMenuTrayIcon.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -122,83 +122,83 @@
             this.toolStripMenuItem3,
             this.exitToolStripMenuItem});
             this.ctxMenuTrayIcon.Name = "ctxMenuTrayIcon";
-            this.ctxMenuTrayIcon.Size = new System.Drawing.Size(118, 194);
+            this.ctxMenuTrayIcon.Size = new System.Drawing.Size(117, 194);
             // 
             // captureToolStripMenuItem
             // 
             this.captureToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.captureToolStripMenuItem.Name = "captureToolStripMenuItem";
-            this.captureToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.captureToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.captureToolStripMenuItem.Text = "&Capture";
             this.captureToolStripMenuItem.ToolTipText = "Displays various Capture options";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(114, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(113, 6);
             // 
             // toolStripSendTo
             // 
             this.toolStripSendTo.Name = "toolStripSendTo";
-            this.toolStripSendTo.Size = new System.Drawing.Size(117, 22);
+            this.toolStripSendTo.Size = new System.Drawing.Size(116, 22);
             this.toolStripSendTo.Text = "&Send To";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(114, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(113, 6);
             // 
             // toolStripTools
             // 
             this.toolStripTools.Name = "toolStripTools";
-            this.toolStripTools.Size = new System.Drawing.Size(117, 22);
+            this.toolStripTools.Size = new System.Drawing.Size(116, 22);
             this.toolStripTools.Text = "&Tools";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(114, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(113, 6);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.optionsToolStripMenuItem.Text = "&Settings";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem1_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(114, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(113, 6);
             // 
             // toolStripExplore
             // 
             this.toolStripExplore.Name = "toolStripExplore";
-            this.toolStripExplore.Size = new System.Drawing.Size(117, 22);
+            this.toolStripExplore.Size = new System.Drawing.Size(116, 22);
             this.toolStripExplore.Text = "&Explore";
             this.toolStripExplore.Click += new System.EventHandler(this.toolStripExplore_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(114, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(113, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(114, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(113, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -347,7 +347,7 @@
             this.tbjpgQuality.Maximum = 100;
             this.tbjpgQuality.Minimum = 1;
             this.tbjpgQuality.Name = "tbjpgQuality";
-            this.tbjpgQuality.Size = new System.Drawing.Size(254, 45);
+            this.tbjpgQuality.Size = new System.Drawing.Size(254, 42);
             this.tbjpgQuality.SmallChange = 10;
             this.tbjpgQuality.TabIndex = 13;
             this.tbjpgQuality.TickFrequency = 10;
@@ -555,8 +555,8 @@
             this.panel2.Controls.Add(this.llDownload);
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.label11);
-            this.panel2.Controls.Add(this.label10);
-            this.panel2.Controls.Add(this.label9);
+            this.panel2.Controls.Add(this.lblYearInfo);
+            this.panel2.Controls.Add(this.lblVersion);
             this.panel2.Controls.Add(this.label8);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 3);
@@ -595,23 +595,23 @@
             this.label11.Text = "You can download latest version, submit bugs and \r\nfeature requests at the follow" +
     "ing website";
             // 
-            // label10
+            // lblYearInfo
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(138, 74);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(215, 13);
-            this.label10.TabIndex = 2;
-            this.label10.Text = "Copyright © 2010 - 2012 dotnetthoughts.net";
+            this.lblYearInfo.AutoSize = true;
+            this.lblYearInfo.Location = new System.Drawing.Point(138, 74);
+            this.lblYearInfo.Name = "lblYearInfo";
+            this.lblYearInfo.Size = new System.Drawing.Size(215, 13);
+            this.lblYearInfo.TabIndex = 2;
+            this.lblYearInfo.Text = "Copyright © 2010 - 2012 dotnetthoughts.net";
             // 
-            // label9
+            // lblVersion
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(138, 43);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(66, 13);
-            this.label9.TabIndex = 1;
-            this.label9.Text = "Version : 1.0";
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(138, 43);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(66, 13);
+            this.lblVersion.TabIndex = 1;
+            this.lblVersion.Text = "Version : 1.0";
             // 
             // label8
             // 
@@ -715,8 +715,8 @@
         private System.Windows.Forms.TabPage tpKeyboard;
         private System.Windows.Forms.CheckBox chkShortcutsEnabled;
         private System.Windows.Forms.TabPage tpAbout;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblYearInfo;
+        private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.LinkLabel llDownload;

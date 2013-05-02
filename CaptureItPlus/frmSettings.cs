@@ -8,6 +8,7 @@
     using CaptureItPlus.Capturemodes;
     using CaptureItPlus.Libs;
     using dotnetthoughts.CaptureItPlus;
+    using System.Reflection;
 
     public partial class frmSettings : Form, ISendToHost
     {
@@ -88,6 +89,10 @@
                 _keyboardMapper = new KeyboardMapper();
             }
             keyboardProperties.SelectedObject = _keyboardMapper;
+            string year = DateTime.Now.Year > 2013 ? DateTime.Now.Year.ToString() : "2013";
+            lblYearInfo.Text = string.Format("Copyright © 2010 - {0} dotnetthoughts.net", year);
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            lblVersion.Text = string.Format("Version :{0}", version);
             Visible = false;
         }
 

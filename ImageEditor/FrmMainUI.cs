@@ -337,9 +337,12 @@ namespace ImageEditor
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ImageFormat imageFormat = GetImageFormat(_fileName);
-            DrawImageAndSave(_fileName, imageFormat);
-            _isSaved = true;
+            if (_fileName.Length >= 1)
+            {
+                ImageFormat imageFormat = GetImageFormat(_fileName);
+                DrawImageAndSave(_fileName, imageFormat);
+                _isSaved = true;
+            }
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -458,26 +461,32 @@ namespace ImageEditor
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Image image = picPreview.Image;
-            using (Graphics graphics = Graphics.FromImage(picPreview.Image))
+            if (_fileName.Length >= 1)
             {
-                if (_shapes.Count >= 1)
+                Image image = picPreview.Image;
+                using (Graphics graphics = Graphics.FromImage(picPreview.Image))
                 {
-                    graphics.SmoothingMode = SmoothingMode.HighQuality;
-                    foreach (var customShape in _shapes)
+                    if (_shapes.Count >= 1)
                     {
-                        graphics.DrawPath(customShape.Pen, customShape.Path);
+                        graphics.SmoothingMode = SmoothingMode.HighQuality;
+                        foreach (var customShape in _shapes)
+                        {
+                            graphics.DrawPath(customShape.Pen, customShape.Path);
+                        }
                     }
                 }
+                Clipboard.SetImage(image);
             }
-            Clipboard.SetImage(image);
         }
 
         private void sendToMailMenuItem6_Click(object sender, EventArgs e)
         {
-            var mapi = new MAPI();
-            mapi.AddAttachment(_fileName);
-            mapi.SendMailPopup(string.Empty, _fileName);
+            if (_fileName.Length >= 1)
+            {
+                var mapi = new MAPI();
+                mapi.AddAttachment(_fileName);
+                mapi.SendMailPopup(string.Empty, _fileName);
+            }
         }
 
         private void toolsToolStripMenuItem_DropDownOpening(object sender, EventArgs e)

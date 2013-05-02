@@ -423,7 +423,19 @@
             template = Regex.Replace(template, "%SYSTEM%", Environment.MachineName, RegexOptions.IgnoreCase);
             template = Regex.Replace(template, "%AUTO%", GetCount(), RegexOptions.IgnoreCase);
 
-            return template;
+            return FixFilename(template);
+        }
+
+        private static string FixFilename(string filename)
+        {
+            string invalidFileName = filename;
+            //string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+            //foreach (char c in invalid)
+            //{
+            //    invalidFileName = invalidFileName.Replace(c.ToString(), "");
+            //}
+
+            return invalidFileName;
         }
 
         public static string GetCount()
