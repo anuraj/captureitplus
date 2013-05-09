@@ -26,7 +26,7 @@
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
+            Application.ThreadException += Application_ThreadException;
             Process currentProcess = Process.GetCurrentProcess();
             Process[] processItems = Process.GetProcessesByName(currentProcess.ProcessName);
             foreach (Process item in processItems)
@@ -42,12 +42,13 @@
 
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            string _logFile = Path.ChangeExtension(Application.ExecutablePath, ".log");
-            Logger logger = new Logger(_logFile);
+            string logPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string file = Path.ChangeExtension("captureitplus", ".txt");
+            string logFile = Path.Combine(logPath, file);
+            var logger = new Logger(logFile);
             logger.WriteLog(e.Exception);
-            MessageBox.Show(string.Format(Constants.APP_EXCEPTION, 
-                Environment.NewLine, 
-                e.Exception.Message, e.Exception.StackTrace), Constants.APP_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(string.Format(Constants.APP_EXCEPTION, Environment.NewLine), Constants.APP_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Process.Start(logFile);
         }
     }
 }

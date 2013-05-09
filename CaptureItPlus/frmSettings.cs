@@ -4,11 +4,9 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
-    using System.Windows.Forms;
-    using CaptureItPlus.Capturemodes;
-    using CaptureItPlus.Libs;
-    using dotnetthoughts.CaptureItPlus;
     using System.Reflection;
+    using System.Windows.Forms;
+    using CaptureItPlus.Libs;
 
     public partial class frmSettings : Form, ISendToHost
     {
