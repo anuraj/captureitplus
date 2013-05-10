@@ -1,20 +1,17 @@
 ﻿using CaptureItPlus.Libs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ImageEditor
 {
-    class SendToScreeshotEditor : ISendTo
+    class SendToScreenShotEditor : ISendTo
     {
         public string Name
         {
-            get { return "Screeshot Editor"; }
+            get { return "ScreenShot Editor"; }
         }
 
         public string Text
         {
-            get { return "Screeshot Editor"; }
+            get { return "ScreenShot Editor"; }
         }
 
         public void Execute(string filename)

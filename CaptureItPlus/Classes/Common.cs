@@ -429,11 +429,11 @@
         private static string FixFilename(string filename)
         {
             string invalidFileName = filename;
-            //string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
-            //foreach (char c in invalid)
-            //{
-            //    invalidFileName = invalidFileName.Replace(c.ToString(), "");
-            //}
+            string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+            foreach (char c in invalid)
+            {
+                invalidFileName = invalidFileName.Replace(c.ToString(), "");
+            }
 
             return invalidFileName;
         }

@@ -43,7 +43,7 @@
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
             string logPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string file = Path.ChangeExtension("captureitplus", ".txt");
+            string file = Path.ChangeExtension("captureitplus_log", ".txt");
             string logFile = Path.Combine(logPath, file);
             var logger = new Logger(logFile);
             logger.WriteLog(e.Exception);

@@ -78,7 +78,7 @@
     </Compile>
     <Compile Include="ImageEditorTool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SendToScreeshotEditor.cs" />
+    <Compile Include="SendToScreenShotEditor.cs" />
     <EmbeddedResource Include="frmInsertText.resx">
       <DependentUpon>frmInsertText.cs</DependentUpon>
     </EmbeddedResource>
