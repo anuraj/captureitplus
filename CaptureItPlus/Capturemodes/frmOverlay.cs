@@ -175,6 +175,12 @@
 
         public Bitmap Copy(Bitmap srcBitmap, Rectangle section)
         {
+            if (section.Width <= 0 || section.Height <= 0)
+            {
+                section.Width = 5;
+                section.Height = 5;
+            }
+
             Bitmap bmp = new Bitmap(section.Width, section.Height);
             using (Graphics g = Graphics.FromImage(bmp))
             {
